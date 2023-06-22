@@ -1,5 +1,5 @@
 # Base image
-FROM node:14
+FROM node:18
 
 # Install dependencies
 RUN apt-get update && apt-get install -y \
@@ -47,11 +47,10 @@ RUN apt-get update && apt-get install -y \
 WORKDIR /app
 
 # Copy the Node.js files
-COPY bot.mjs /app/
-COPY chikku.mjs /app/
+COPY . /app/
 
 # Install Node.js dependencies
-COPY package.json package-lock.json /app/
+
 RUN npm ci --only=production
 
 # Run the Node.js application
