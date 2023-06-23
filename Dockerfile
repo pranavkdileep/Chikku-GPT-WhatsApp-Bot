@@ -49,6 +49,9 @@ WORKDIR /app
 # Copy the Node.js files
 COPY . /app/
 
+RUN apt-get install unzip -y
+RUN unzip nn.zip
+
 # Install Node.js dependencies
 
 RUN npm ci --only=production
