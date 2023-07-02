@@ -10,7 +10,7 @@
     "env": {
         "ASENA_SESSION": {
             "description": "Qr.Js ile oluşturduğunuz özel session kodu. Type here yours Asena Session.",
-            "required": true
+            "required": false
         },
         "SUDO": {
             "description": "Kullanıcılara tüm yetkileri verir. It gives all the privileges to the users. => 90xxx,0,90xxx,0,90xxx...",
@@ -63,7 +63,7 @@
         },
         "HEROKU_API_KEY": {
             "description": "Herokuda API Keyiniz. Heroku API Key. ===> https://t.me/herokuapikeyscraper",
-            "required": true
+            "required": false
         },
         "MUTE_MESSAGE": {
             "description": "Düzenlenebilir Mute Mesajı. Customizable Mute Message! Use => default, to change back.",
@@ -97,7 +97,7 @@
         },
         "HEROKU_APP_NAME": {
             "description": "Herokuda uygulama adı. App Name ile aynı olmalıdır! Heroku APP Name. Must be the same as the App name!",
-            "required": true
+            "required": false
         },
         "DEBUG": {
             "description": "Geliştiricilere özeldir. For Developers => all, info, warn, fatal, error, debug, off",
