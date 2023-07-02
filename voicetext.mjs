@@ -1,43 +1,26 @@
-// Converts Base64 audio to text using the Web Speech API
-async function convertAudioToText(base64Audio) {
-  const audioBuffer = Buffer.from(base64Audio, 'base64');
-  const audioBlob = new Blob([audioBuffer], { type: 'audio/wav' });
-  const audioURL = URL.createObjectURL(audioBlob);
+import { client } from "@gradio/client";
+import fs from "fs";
 
-  const recognition = new webkitSpeechRecognition();
-  recognition.lang = 'en-US';
+async function vtt(base64_audio) {
+  // Convert base64 audio to buffer
+  const audioBuffer = Buffer.from(base64_audio, "base64");
 
-  return new Promise((resolve, reject) => {
-    recognition.onresult = event => {
-      const result = event.results[0][0].transcript;
-      resolve(result);
-    };
+  // Write buffer to a WAV file
+  fs.writeFileSync("audio.wav", audioBuffer);
 
-    recognition.onerror = event => {
-      reject(new Error(event.error));
-    };
+  // Load the Gradio app
+  const app = await client("abidlabs/whisper");
 
-    recognition.onend = () => {
-      URL.revokeObjectURL(audioURL);
-    };
+  // Read the WAV file
+  const audioFile = fs.readFileSync("audio.wav");
 
-    recognition.start();
+  // Transcribe the audio
+  const transcription = await app.predict("/predict", [audioFile]);
 
-    const audio = new Audio(audioURL);
-    audio.play();
-  });
+  // Log the transcription
+  console.log(transcription?.data[0]);
+  return transcription?.data[0];
 }
 
-// Main function to convert Base64 audio to text
-async function voicetext(base64) {
-  try {
-    const text = await convertAudioToText(base64);
-    return text;
-  } catch (error) {
-    console.error('Error:', error);
-    throw error;
-  }
-}
 
-export default voicetext;
-
+export default vtt;

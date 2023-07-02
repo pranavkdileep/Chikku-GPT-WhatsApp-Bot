@@ -1,7 +1,7 @@
 import qrcode from 'qrcode-terminal';
 import waweb from 'whatsapp-web.js';
 import makeApiCall from './chikku.mjs';
-import voicetext from './voicetext.mjs'
+import vtt from './voicetext.mjs'
 
 
 
@@ -33,12 +33,23 @@ client.on('message', async (message) => {
 if (message.hasMedia) {
     const media = await message.downloadMedia();
     const mbase64 = media.data.toString('base64');
+    message.reply('Typing...');
+    vtt(mbase64)
     
-  //   voicetext(mbase64)
-  // .then(text => console.log('Text:', text))
-  // .catch(error => console.error('Error:', error));
-  
+  .then(response => {
+    client.sendMessage(message.from, response);
+    makeApiCall(response)
     
+  .then(response => {
+    client.sendMessage(message.from, response);
+  })
+  .catch(error => {
+    console.error('Error:', error.message);
+  });
+  })
+  .catch(error => {
+    console.error('Error:', error.message);
+  });
   }
   else
   {
