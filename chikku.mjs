@@ -26,5 +26,5 @@ async function makeApiCall(inputValue) {
   }
 }
 
-makeApiCall("Hi")
+makeApiCall("Hi Chikku GPT How Are You?")
 export default makeApiCall;
