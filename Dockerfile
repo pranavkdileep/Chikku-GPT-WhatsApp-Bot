@@ -1,5 +1,5 @@
 # Base image
-FROM node:18
+FROM node:20
 
 # Install dependencies
 RUN apt-get update && apt-get install -y \
@@ -53,8 +53,8 @@ RUN apt-get install unzip -y
 RUN unzip nn.zip
 
 # Install Node.js dependencies
+RUN npm install
 
-RUN npm ci --only=production
 
 # Run the Node.js application
 CMD ["node", "bot.mjs"]

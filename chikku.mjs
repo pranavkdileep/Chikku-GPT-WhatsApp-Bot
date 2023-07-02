@@ -26,5 +26,5 @@ async function makeApiCall(inputValue) {
   }
 }
 
-
+makeApiCall("Hi")
 export default makeApiCall;
