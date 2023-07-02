@@ -14,7 +14,7 @@ async function makeApiCall(inputValue) {
       includeHistory: true
     };
 
-    const app = await client("https://500fd429c6147f342e.gradio.live/");
+    const app = await client("pranavkdileep/chikkugptwa");
 	  const result = await app.predict("/predict", [		
 				inputValue, // string  in 'text' Textbox component
 	]);
