@@ -14,7 +14,7 @@ async function makeApiCall(inputValue) {
       includeHistory: true
     };
 
-    const app = await client("pranavkdileep/chikkugptwa");
+    const app = await client("pranavkd/chikkugptwa");
 	  const result = await app.predict("/predict", [		
 				inputValue, // string  in 'text' Textbox component
 	]);
