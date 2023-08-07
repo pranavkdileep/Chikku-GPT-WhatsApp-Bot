@@ -7,11 +7,7 @@ async function makeApiCall(inputValue) {
 
     const data = {
       chatbotId: chatbotId,
-      input: inputValue,
-      userId: userId,
-      provider: 'OPEN_AI',
-      config: false,
-      includeHistory: true
+      
     };
 
     const app = await client("pranavkd/chikkugptwa");
