@@ -2,10 +2,14 @@ import qrcode from 'qrcode-terminal';
 import waweb from 'whatsapp-web.js';
 import makeApiCall from './chikku.mjs';
 import vtt from './vttt.mjs'
+import getArt from './imagine.mjs';
+import axios from 'axios';
 
 
 
-const { Client,LocalAuth } = waweb;
+
+
+const { Client,LocalAuth,MessageMedia } = waweb;
  
 const client = new Client({
     authStrategy: new LocalAuth(),
@@ -51,6 +55,27 @@ if (message.hasMedia) {
     console.error('Error:', error.message);
   });
   }
+  else if (message.body.includes('!imagine')) {
+    const image_promt = message.body.replace('!imagine', '');
+    message.reply('Generating Your Art It Will Take Around 10 Minutes...');
+  
+    const imm = await getArt(image_promt);
+    const imageUrl = imm;
+    client.sendMessage(message.from,imm)
+  
+    axios
+      .get(imageUrl, { responseType: 'arraybuffer' })
+      .then(async (response) => { // Add async here
+        const base64Image = Buffer.from(response.data, 'binary').toString('base64');
+        const mediaim = await new MessageMedia('image/jpeg', base64Image); // Remove await from here
+        await client.sendMessage(message.from, mediaim); // Add await here
+        console.log('Base64 Image:', base64Image);
+      })
+      .catch((error) => {
+        console.error('Error fetching the image:', error);
+      });
+  }
+  
   else
   {
     message.reply('Typing...');
@@ -63,4 +88,5 @@ if (message.hasMedia) {
     console.error('Error:', error.message);
   });
   }
+ 
 });;
